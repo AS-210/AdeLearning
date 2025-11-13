@@ -100,9 +100,23 @@
 <script>
   // ---------- Availability configuration ----------
   // Hours are 24h integers. Example: Mon–Fri: 09–13, 16–19; Sat/Sun: none.
-  const HOURS = [9,10,11,12,13,16,17,18,19];
   const WEEK_MAP = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
-  const AVAILABLE_BY_DOW = {0:[],1:HOURS,2:HOURS,3:HOURS,4:HOURS,5:HOURS,6:[]}; // edit if needed
+  // Unified slot list (applies every day)
+const SLOTS = [
+  { start: '08:00', end: '08:50', label: '08:00–08:50' },
+  { start: '09:00', end: '09:50', label: '09:00–09:50' },
+  { start: '10:00', end: '10:50', label: '10:00–10:50' },
+  { start: '11:00', end: '11:50', label: '11:00–11:50' },
+  { start: '12:00', end: '12:50', label: '12:00–12:50' },
+  { start: '13:00', end: '13:50', label: '13:00–13:50' },
+  // 40-min break (13:50–14:30)
+  { start: '14:30', end: '15:30', label: '14:30–15:30' },
+  { start: '15:45', end: '16:45', label: '15:45–16:45' },
+  { start: '17:00', end: '18:00', label: '17:00–18:00' },
+  { start: '18:15', end: '19:15', label: '18:15–19:15' },
+  { start: '19:30', end: '20:30', label: '19:30–20:30' }
+];
+const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
 
   // Window: today .. today+13 (two weeks)
   const START = new Date(); START.setHours(0,0,0,0);
@@ -163,47 +177,45 @@
     }
     grid.appendChild(headerRow);
 
-    // time rows
-    const times = [...new Set(HOURS)].sort((a,b)=>a-b);
-    times.forEach(hr=>{
-      const row = document.createElement('div');
-      row.className = 'row';
+   // slot rows
+SLOTS.forEach(slot => {
+  const row = document.createElement('div');
+  row.className = 'row';
 
-      // time label col
-      const tlabel = document.createElement('div');
-      tlabel.className = 'cell time-col';
-      tlabel.textContent = `${String(hr).padStart(2,'0')}:00`;
-      row.appendChild(tlabel);
+  // slot label column (shows full range)
+  const tlabel = document.createElement('div');
+  tlabel.className = 'cell time-col';
+  tlabel.textContent = slot.label;
+  row.appendChild(tlabel);
 
-      // 7 day cells
-      for(let i=0;i<7;i++){
-        const d = new Date(first); d.setDate(first.getDate()+i);
-        const inWindow = clampToWindow(d);
-        const allowed = AVAILABLE_BY_DOW[d.getDay()]?.includes(hr);
-        const available = inWindow && allowed;
+  // 7 day cells
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(first); d.setDate(first.getDate() + i);
+    const inWindow = clampToWindow(d);
+    const allowedDay = OPEN_DAYS.includes(d.getDay());
+    const available = inWindow && allowedDay;
 
-        const cell = document.createElement('button');
-        cell.type = 'button';
-        cell.className = 'cell slot ' + (available ? 'available' : 'unavailable');
-        cell.disabled = !available;
+    const cell = document.createElement('button');
+    cell.type = 'button';
+    cell.className = 'cell slot ' + (available ? 'available' : 'unavailable');
+    cell.disabled = !available;
 
-        if(available){
-          const iso = `${ymd(d)} ${String(hr).padStart(2,'0')}:00`;
-          cell.dataset.iso = iso;
-          cell.addEventListener('click', ()=>{
-            // clear previous selection
-            document.querySelectorAll('.cell.slot.selected').forEach(c=>c.classList.remove('selected'));
-            cell.classList.add('selected');
-            selectedISO = iso;
-            document.getElementById('session_datetime').value = iso;
-          });
-        }
+    if (available) {
+      const iso = `${ymd(d)} ${slot.start}-${slot.end}`;
+      cell.dataset.iso = iso;
+      cell.addEventListener('click', () => {
+        document.querySelectorAll('.cell.slot.selected').forEach(c => c.classList.remove('selected'));
+        cell.classList.add('selected');
+        selectedISO = iso;
+        document.getElementById('session_datetime').value = iso;
+      });
+    }
 
-        row.appendChild(cell);
-      }
+    row.appendChild(cell);
+  }
 
-      grid.appendChild(row);
-    });
+  grid.appendChild(row);
+});
 
     // nav buttons state
     const prevBtn = document.getElementById('prevWeek');
@@ -241,6 +253,7 @@
 
 </body>
 </html>
+
 
 
 
