@@ -149,6 +149,12 @@ const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
     return `${fmt(a)} – ${fmt(b)}`;
   }
 
+  function ordinalSup(n){
+  const s = ["th","st","nd","rd"];
+  const v = n % 100;
+  const suf = s[(v - 20) % 10] || s[v] || s[0];
+  return `${n}<sup>${suf}</sup>`;
+}
   function buildGrid(){
     const grid = document.getElementById('availabilityGrid');
     grid.innerHTML = '';
@@ -172,7 +178,8 @@ const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
       const d = new Date(first); d.setDate(first.getDate()+i);
       const cell = document.createElement('div');
       cell.className = 'cell head';
-      cell.innerHTML = `<div class="dow">${WEEK_MAP[d.getDay()]}</div><div class="date">${d.getDate()}</div>`;
+      const dayNum = d.getDate();
+      cell.innerHTML = `<div class="headlabel">${WEEK_MAP[d.getDay()]} ${ordinalSup(dayNum)}</div>`;
       headerRow.appendChild(cell);
     }
     grid.appendChild(headerRow);
@@ -253,6 +260,7 @@ SLOTS.forEach(slot => {
 
 </body>
 </html>
+
 
 
 
