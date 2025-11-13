@@ -94,38 +94,6 @@ footer {
   padding: 1rem 0;      /* slightly reduced to align visually */
 }
 
-#session-picker {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-#calendar-slots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.slot {
-  padding: 0.5rem 1rem;
-  background: #e3f2fd;
-  border: 1px solid #90caf9;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.slot:hover {
-  background: #bbdefb;
-}
-
-.slot.booked {
-  background: #ccc;
-  cursor: not-allowed;
-  text-decoration: line-through;
-}
 .iti {
   width: 100%;
   margin-bottom: 1rem;       /* same vertical spacing as others */
@@ -174,4 +142,13 @@ footer {
 
 .cell.slot.selected{ outline:3px solid #1e56c5; background:#bcd2ff !important; }
 
+/* Keep the grid usable on small screens */
+.calendar { overflow-x: auto; }  /* enables horizontal scroll if needed */
+
+@media (max-width: 520px) {
+  .row { grid-template-columns: 64px repeat(7, 1fr); }
+  .cell { min-height: 38px; }
+  .cell.head .dow { font-size: .85rem; }
+  .cell.head .date { font-size: .75rem; }
+}
 
