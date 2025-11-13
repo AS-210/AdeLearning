@@ -140,5 +140,38 @@ footer {
   border-radius: 4px;
   box-sizing: border-box;
 }
+/* Availability grid */
+.avail-header{
+  display:flex; align-items:center; justify-content:center;
+  gap:12px; margin:8px 0 12px;
+  font-weight:600;
+}
+.nav-btn{
+  border:1px solid #c9d4ea; background:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;
+}
+.nav-btn:disabled{ opacity:0.4; cursor:not-allowed; }
+
+.grid{ display:block; width:100%; }
+.row{ display:grid; grid-template-columns: 90px repeat(7, 1fr); }
+.row + .row{ border-top:1px solid #eee; }
+
+.cell{
+  min-height:44px; display:flex; align-items:center; justify-content:center;
+  border-left:1px solid #eee;
+}
+.cell:first-child{ border-left:none; }
+
+.cell.head{ background:#f7f9fc; font-weight:600; }
+.cell.head .dow{ font-size:.9rem; }
+.cell.head .date{ font-size:.85rem; opacity:.75; }
+
+.time-col{ background:#fafafa; font-weight:600; }
+
+.cell.slot{ border-radius:0; border-left:1px solid #eee; }
+.cell.slot.available{ background:#e6f0ff; }             /* blue blocks */
+.cell.slot.available:hover{ background:#cfe2ff; cursor:pointer; }
+.cell.slot.unavailable{ background:#fff; }
+
+.cell.slot.selected{ outline:3px solid #1e56c5; background:#bcd2ff !important; }
 
 
