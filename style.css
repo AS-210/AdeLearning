@@ -195,7 +195,17 @@ footer {
 @media (max-width:520px){
   .top-actions{top:8px; right:8px;}
   .icon-btn{width:36px; height:36px;}
+
+  .dropdown ul {
+  list-style: none;       /* removes the bullets */
+  margin: 0;              /* removes default indentation */
+  padding: 0;             /* removes default spacing */
 }
+  .dropdown ul li {
+  padding: 8px 16px;
+}
+}
+
 
 
 
