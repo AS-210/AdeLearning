@@ -290,9 +290,32 @@ SLOTS.forEach(slot => {
 
   buildGrid();
 </script>
+<script>
+  // Login dropdown toggle + close on outside click / Esc
+  const loginToggle = document.getElementById('loginToggle');
+  const loginWrap = document.querySelector('.login-dropdown');
 
+  function closeMenu(){
+    loginWrap.classList.remove('open');
+    loginToggle.setAttribute('aria-expanded','false');
+  }
+
+  loginToggle.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    const open = loginWrap.classList.toggle('open');
+    loginToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (e)=>{
+    if(!loginWrap.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') closeMenu();
+  });
+</script>
 </body>
 </html>
+
 
 
 
