@@ -145,6 +145,9 @@ footer {
 .cell.slot.available:hover{ background:#cfe2ff; cursor:pointer; }
 .cell.slot.unavailable{ background:#fff; }
 .cell.slot.unavailable { background:#fff; cursor: default; }
+/* Unavailable rows that are intentional breaks */
+.row.break .time-col { background:#f2f2f2; }
+.row.break .cell.slot.unavailable { background:#f7f7f7; color:#777; }
 
 .cell.slot.selected{ outline:3px solid #1e56c5; background:#bcd2ff !important; }
 
@@ -157,6 +160,7 @@ footer {
   .cell.head .dow { font-size: .85rem; }
   .cell.head .date { font-size: .75rem; }
 }
+
 
 
 
