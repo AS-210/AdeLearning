@@ -102,19 +102,28 @@
   // Hours are 24h integers. Example: Mon–Fri: 09–13, 16–19; Sat/Sun: none.
   const WEEK_MAP = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
   // Unified slot list (applies every day)
+// Unified slot list (applies every day). Breaks included as unavailable rows.
 const SLOTS = [
-  { start: '08:00', end: '08:50', label: '08:00–08:50' },
-  { start: '09:00', end: '09:50', label: '09:00–09:50' },
-  { start: '10:00', end: '10:50', label: '10:00–10:50' },
-  { start: '11:00', end: '11:50', label: '11:00–11:50' },
-  { start: '12:00', end: '12:50', label: '12:00–12:50' },
-  { start: '13:00', end: '13:50', label: '13:00–13:50' },
-  // 40-min break (13:50–14:30)
-  { start: '14:30', end: '15:30', label: '14:30–15:30' },
-  { start: '15:45', end: '16:45', label: '15:45–16:45' },
-  { start: '17:00', end: '18:00', label: '17:00–18:00' },
-  { start: '18:15', end: '19:15', label: '18:15–19:15' },
-  { start: '19:30', end: '20:30', label: '19:30–20:30' }
+  // Morning teaching blocks (50 min each)
+  { start: '08:00', end: '08:50', label: '08:00–08:50', available: true },
+  { start: '09:00', end: '09:50', label: '09:00–09:50', available: true },
+  { start: '10:00', end: '10:50', label: '10:00–10:50', available: true },
+  { start: '11:00', end: '11:50', label: '11:00–11:50', available: true },
+  { start: '12:00', end: '12:50', label: '12:00–12:50', available: true },
+  { start: '13:00', end: '13:50', label: '13:00–13:50', available: true },
+
+  // Midday break (visible row, not selectable)
+  { start: '13:50', end: '14:30', label: '13:50–14:30 (Break)', available: false },
+
+  // Evening teaching blocks (60 min with 15-min gaps)
+  { start: '14:30', end: '15:30', label: '14:30–15:30', available: true },
+  { start: '15:45', end: '16:45', label: '15:45–16:45', available: true },
+  { start: '17:00', end: '18:00', label: '17:00–18:00', available: true },
+  { start: '18:15', end: '19:15', label: '18:15–19:15', available: true },
+  { start: '19:30', end: '20:30', label: '19:30–20:30', available: true },
+
+  // Overnight break (visible row, not selectable)
+  { start: '20:30', end: '08:00', label: '20:30–08:00 (Break)', available: false }
 ];
 const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
 
@@ -200,7 +209,7 @@ SLOTS.forEach(slot => {
     const d = new Date(first); d.setDate(first.getDate() + i);
     const inWindow = clampToWindow(d);
     const allowedDay = OPEN_DAYS.includes(d.getDay());
-    const available = inWindow && allowedDay;
+    const available = inWindow && allowedDay && slot.available;
 
     const cell = document.createElement('button');
     cell.type = 'button';
@@ -260,6 +269,7 @@ SLOTS.forEach(slot => {
 
 </body>
 </html>
+
 
 
 
