@@ -60,8 +60,17 @@
  <!-- Choose a Free Session Time (moved above Send button) -->
 <section id="calendar" class="calendar">
   <h2>Choose a Free Session Time</h2>
-  <p>Select a day and time below:</p>
-  <input id="session-picker" placeholder="Click to choose..." readonly required />
+
+  <div class="avail-header">
+    <button type="button" id="prevWeek" class="nav-btn" aria-label="Previous week">←</button>
+    <div id="weekLabel"></div>
+    <button type="button" id="nextWeek" class="nav-btn" aria-label="Next week">→</button>
+  </div>
+
+  <div class="grid" id="availabilityGrid" aria-live="polite"></div>
+
+  <!-- stores the selected slot -->
+  <input type="hidden" name="session_datetime" id="session_datetime" />
 </section>
 
 <button type="submit">Send</button>
@@ -70,53 +79,7 @@
   <footer>
     <p>&copy; 2025 Ade Learning</p>
   </footer>
-<!-- Flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-  const generateAvailableDates = () => {
-    const available = {};
-    const now = new Date();
-    const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(now.getDate() + 14);
 
-    for (let d = new Date(now); d <= twoWeeksFromNow; d.setDate(d.getDate() + 1)) {
-      const day = d.toISOString().split('T')[0]; // YYYY-MM-DD
-
-      // Example: add 5 time slots for each day (could customize per weekday)
-      available[day] = [];
-
-      // Morning: 50-min sessions every hour from 9 to 1
-      for (let h = 9; h <= 13; h++) {
-        available[day].push(`${h.toString().padStart(2, '0')}:00`);
-      }
-
-      // Evening: sessions at 4:00, 5:15, 6:30, 7:45
-      const eveningTimes = ["16:00", "17:15", "18:30", "19:45"];
-      available[day].push(...eveningTimes);
-    }
-
-    return available;
-  };
-
-  const availableDates = generateAvailableDates();
-
-  flatpickr("#session-picker", {
-    enable: Object.keys(availableDates),
-    dateFormat: "Y-m-d",
-    onChange: function(selectedDates, dateStr, instance) {
-      const timeList = availableDates[dateStr];
-      if (!timeList) return;
-
-      const time = prompt(`Available on ${dateStr}:\n${timeList.join("\n")}\n\nType preferred time exactly as shown:`);
-
-      if (timeList.includes(time)) {
-        instance.input.value = `${dateStr} ${time}`;
-      } else {
-        alert("Invalid time selected.");
-      }
-    }
-  });
-</script>
 <!-- intl-tel-input JS -->
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 
@@ -134,8 +97,152 @@
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
   });
 </script>
+
+<script>
+  // ---------- Availability configuration ----------
+  // Hours are 24h integers. Example: Mon–Fri: 09–13, 16–19; Sat/Sun: none.
+  const HOURS = [9,10,11,12,13,16,17,18,19];
+  const WEEK_MAP = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
+  const AVAILABLE_BY_DOW = {0:[],1:HOURS,2:HOURS,3:HOURS,4:HOURS,5:HOURS,6:[]}; // edit if needed
+
+  // Window: today .. today+13 (two weeks)
+  const START = new Date(); START.setHours(0,0,0,0);
+  const END   = new Date(START); END.setDate(END.getDate()+13);
+
+  // State
+  let weekStart = startOfWeek(START); // Monday-start or Sunday-start: using Monday below
+  let selectedISO = '';
+
+  function startOfWeek(d){
+    const x = new Date(d);
+    const dow = x.getDay(); // 0 Sun ... 6 Sat
+    // make Monday the first column:
+    const offset = (dow === 0 ? -6 : 1 - dow);
+    x.setDate(x.getDate()+offset);
+    x.setHours(0,0,0,0);
+    return x;
+  }
+
+  function clampToWindow(date){
+    return (date >= START && date <= END);
+  }
+
+  function ymd(date){
+    return date.toISOString().split('T')[0];
+  }
+
+  function labelRange(a,b){
+    const fmt = (dt)=>dt.toLocaleDateString(undefined,{day:'numeric', month:'short', year:'numeric'});
+    return `${fmt(a)} – ${fmt(b)}`;
+  }
+
+  function buildGrid(){
+    const grid = document.getElementById('availabilityGrid');
+    grid.innerHTML = '';
+
+    const first = new Date(weekStart);
+    const last  = new Date(first); last.setDate(last.getDate()+6);
+
+    // Week label
+    document.getElementById('weekLabel').textContent = labelRange(first,last);
+
+    // header row (empty corner + weekdays)
+    const headerRow = document.createElement('div');
+    headerRow.className = 'row header';
+
+    const corner = document.createElement('div'); corner.className = 'cell head time-col';
+    corner.textContent = '';
+    headerRow.appendChild(corner);
+
+    // 7 days (Mon..Sun)
+    for(let i=0;i<7;i++){
+      const d = new Date(first); d.setDate(first.getDate()+i);
+      const cell = document.createElement('div');
+      cell.className = 'cell head';
+      cell.innerHTML = `<div class="dow">${WEEK_MAP[d.getDay()]}</div><div class="date">${d.getDate()}</div>`;
+      headerRow.appendChild(cell);
+    }
+    grid.appendChild(headerRow);
+
+    // time rows
+    const times = [...new Set(HOURS)].sort((a,b)=>a-b);
+    times.forEach(hr=>{
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      // time label col
+      const tlabel = document.createElement('div');
+      tlabel.className = 'cell time-col';
+      tlabel.textContent = `${String(hr).padStart(2,'0')}:00`;
+      row.appendChild(tlabel);
+
+      // 7 day cells
+      for(let i=0;i<7;i++){
+        const d = new Date(first); d.setDate(first.getDate()+i);
+        const inWindow = clampToWindow(d);
+        const allowed = AVAILABLE_BY_DOW[d.getDay()]?.includes(hr);
+        const available = inWindow && allowed;
+
+        const cell = document.createElement('button');
+        cell.type = 'button';
+        cell.className = 'cell slot ' + (available ? 'available' : 'unavailable');
+        cell.disabled = !available;
+
+        if(available){
+          const iso = `${ymd(d)} ${String(hr).padStart(2,'0')}:00`;
+          cell.dataset.iso = iso;
+          cell.addEventListener('click', ()=>{
+            // clear previous selection
+            document.querySelectorAll('.cell.slot.selected').forEach(c=>c.classList.remove('selected'));
+            cell.classList.add('selected');
+            selectedISO = iso;
+            document.getElementById('session_datetime').value = iso;
+          });
+        }
+
+        row.appendChild(cell);
+      }
+
+      grid.appendChild(row);
+    });
+
+    // nav buttons state
+    const prevBtn = document.getElementById('prevWeek');
+    const nextBtn = document.getElementById('nextWeek');
+
+    const prevStart = new Date(weekStart); prevStart.setDate(prevStart.getDate()-7);
+    const nextStart = new Date(weekStart); nextStart.setDate(nextStart.getDate()+7);
+
+    const prevInRange = (new Date(prevStart) >= startOfWeek(START));
+    const nextInRange = (new Date(nextStart) <= startOfWeek(END));
+
+    prevBtn.disabled = !prevInRange;
+    nextBtn.disabled = !nextInRange;
+  }
+
+  document.getElementById('prevWeek').addEventListener('click', ()=>{
+    weekStart.setDate(weekStart.getDate()-7);
+    buildGrid();
+  });
+  document.getElementById('nextWeek').addEventListener('click', ()=>{
+    weekStart.setDate(weekStart.getDate()+7);
+    buildGrid();
+  });
+
+  // Prevent form submit without a picked slot
+  document.querySelector('form').addEventListener('submit', (e)=>{
+    if(!document.getElementById('session_datetime').value){
+      e.preventDefault();
+      alert('Select a slot (click a blue block) before sending.');
+    }
+  });
+
+  buildGrid();
+</script>
+
 </body>
 </html>
+
 
 
 
