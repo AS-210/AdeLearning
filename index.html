@@ -13,29 +13,27 @@
 <body>
   <header class="hero">
     <!-- Top-right quick actions -->
-<div class="top-actions" role="navigation" aria-label="Quick actions">
-  <!-- Contact icon (target can be changed later) -->
-  <a id="contactAction" href="#contact" class="icon-btn" title="Contact">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.236-7.445 5.59a2 2 0 0 1-2.11 0L3 8.236V6l8.445 6.34a2 2 0 0 0 2.11 0L20 6v2.236z"/>
-    </svg>
-    <span class="sr-only">Contact</span>
-  </a>
+<!-- Contact (with label) -->
+<a id="contactAction" href="#contact" class="icon-btn labeled" title="Contact">
+  <span class="label">Contact</span>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.236-7.445 5.59a2 2 0 0 1-2.11 0L3 8.236V6l8.445 6.34a2 2 0 0 0 2.11 0L20 6v2.236z"/>
+  </svg>
+</a>
 
-  <!-- Login with dropdown -->
-  <div class="login-dropdown">
-    <button id="loginToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" title="Login">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
-      </svg>
-      <span class="sr-only">Login</span>
-    </button>
-    <ul id="loginMenu" class="menu" role="menu" aria-labelledby="loginToggle">
-      <li role="none"><a role="menuitem" href="/login/student">Student/Client</a></li>
-      <li role="none"><a role="menuitem" href="/login/tutor">Tutor</a></li>
-      <li role="none"><a role="menuitem" href="/apply">Become a tutor</a></li>
-    </ul>
-  </div>
+<!-- Login (with label + dropdown) -->
+<div class="login-dropdown labeled">
+  <button id="loginToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" title="Login">
+    <span class="label">Login</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
+    </svg>
+  </button>
+  <ul id="loginMenu" class="menu" role="menu" aria-labelledby="loginToggle">
+    <li role="none"><a role="menuitem" href="/login/student">Student/Client</a></li>
+    <li role="none"><a role="menuitem" href="/login/tutor">Tutor</a></li>
+    <li role="none"><a role="menuitem" href="/apply">Become a tutor</a></li>
+  </ul>
 </div>
     <h1>AdeLearning</h1>
     <p>Math & Physics Tutoring (SATs, PATs, GCSE, IGCSE, AP)</p>
@@ -324,17 +322,3 @@ SLOTS.forEach(slot => {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
