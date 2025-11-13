@@ -91,7 +91,7 @@ footer {
   max-width: 700px;     /* match the width of your form section */
   width: 100%;
   margin: 0 auto;
-  padding: 1rem 0;      /* slightly reduced to align visually */
+  padding: 1rem 0 0.5rem;      /* slightly reduced to align visually */
 }
 
 .iti {
@@ -118,7 +118,11 @@ footer {
   border:1px solid #c9d4ea; background:#fff; padding:6px 10px; border-radius:6px; cursor:pointer;
 }
 .nav-btn:disabled{ opacity:0.4; cursor:not-allowed; }
-
+.nav-btn:focus,
+.cell.slot.available:focus {
+  outline: 3px solid #1e56c5;
+  outline-offset: 2px;
+}
 .grid{ display:block; width:100%; }
 .row{ display:grid; grid-template-columns: 90px repeat(7, 1fr); }
 .row + .row{ border-top:1px solid #eee; }
@@ -139,6 +143,7 @@ footer {
 .cell.slot.available{ background:#e6f0ff; }             /* blue blocks */
 .cell.slot.available:hover{ background:#cfe2ff; cursor:pointer; }
 .cell.slot.unavailable{ background:#fff; }
+.cell.slot.unavailable { background:#fff; cursor: default; }
 
 .cell.slot.selected{ outline:3px solid #1e56c5; background:#bcd2ff !important; }
 
@@ -151,4 +156,5 @@ footer {
   .cell.head .dow { font-size: .85rem; }
   .cell.head .date { font-size: .75rem; }
 }
+
 
