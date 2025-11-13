@@ -57,14 +57,15 @@
 
   <textarea id="message-box" name="message" placeholder="What do you need help with?" required></textarea>
 
-  <button type="submit">Send</button>
-</form>
-  </section>
+ <!-- Choose a Free Session Time (moved above Send button) -->
 <section id="calendar" class="calendar">
   <h2>Choose a Free Session Time</h2>
-  <p>Select a day and time:</p>
-  <input id="session-picker" placeholder="Click to choose..." readonly />
+  <p>Select a day and time below:</p>
+  <input id="session-picker" placeholder="Click to choose..." readonly required />
 </section>
+
+<button type="submit">Send</button>
+</form>
 
   <footer>
     <p>&copy; 2025 Ade Learning</p>
@@ -135,5 +136,6 @@
 </script>
 </body>
 </html>
+
 
 
