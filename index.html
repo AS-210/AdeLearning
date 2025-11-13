@@ -182,9 +182,11 @@ const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
   }
 
   function ordinalSup(n){
-  const s = ["th","st","nd","rd"];
   const v = n % 100;
-  const suf = s[(v - 20) % 10] || s[v] || s[0];
+  const suf = (v >= 11 && v <= 13) ? 'th' :
+              (n % 10 === 1) ? 'st' :
+              (n % 10 === 2) ? 'nd' :
+              (n % 10 === 3) ? 'rd' : 'th';
   return `${n}<sup>${suf}</sup>`;
 }
   function buildGrid(){
@@ -220,7 +222,7 @@ const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
 SLOTS.forEach(slot => {
   const row = document.createElement('div');
   row.className = 'row';
-  if (slot.label.includes('Break')) row.classList.add('break');
+  if (slot.available === false) row.classList.add('break');
 
   // slot label column (shows full range)
   const tlabel = document.createElement('div');
@@ -233,7 +235,8 @@ SLOTS.forEach(slot => {
     const d = new Date(first); d.setDate(first.getDate() + i);
     const inWindow = clampToWindow(d);
     const allowedDay = OPEN_DAYS.includes(d.getDay());
-    const available = inWindow && allowedDay && slot.available;
+    const isSlotOpen = (slot.available !== false);  // default true unless explicitly false
+    const available  = inWindow && allowedDay && isSlotOpen;
 
     const cell = document.createElement('button');
     cell.type = 'button';
@@ -315,6 +318,7 @@ SLOTS.forEach(slot => {
 </script>
 </body>
 </html>
+
 
 
 
