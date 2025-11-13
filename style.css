@@ -128,5 +128,17 @@ footer {
 }
 .iti {
   width: 100%;
+  margin-bottom: 1rem;       /* same vertical spacing as others */
+  display: block;
+  box-sizing: border-box;
 }
+
+.iti input {
+  width: 100% !important;    /* force input width to match others */
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 
