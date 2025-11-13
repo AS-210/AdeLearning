@@ -242,17 +242,23 @@ SLOTS.forEach(slot => {
     cell.type = 'button';
     cell.className = 'cell slot ' + (available ? 'available' : 'unavailable');
     cell.disabled = !available;
+    if (!available) cell.setAttribute('aria-disabled', 'true');
 
     if (available) {
-      const iso = `${ymd(d)} ${slot.start}-${slot.end}`;
-      cell.dataset.iso = iso;
-      cell.addEventListener('click', () => {
-        document.querySelectorAll('.cell.slot.selected').forEach(c => c.classList.remove('selected'));
-        cell.classList.add('selected');
-        selectedISO = iso;
-        document.getElementById('session_datetime').value = iso;
-      });
-    }
+  const iso = `${ymd(d)} ${slot.start}-${slot.end}`;
+  cell.dataset.iso = iso;
+
+  // a11y + tooltip
+  cell.setAttribute('aria-label', `${WEEK_MAP[d.getDay()]} ${ymd(d)} ${slot.start} to ${slot.end}`);
+  cell.title = slot.label;
+
+  cell.addEventListener('click', () => {
+    document.querySelectorAll('.cell.slot.selected').forEach(c => c.classList.remove('selected'));
+    cell.classList.add('selected');
+    selectedISO = iso;
+    document.getElementById('session_datetime').value = iso;
+  });
+}
 
     row.appendChild(cell);
   }
@@ -318,6 +324,7 @@ SLOTS.forEach(slot => {
 </script>
 </body>
 </html>
+
 
 
 
