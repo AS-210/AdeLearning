@@ -1,0 +1,122 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  background: #f9f9f9;
+}
+
+header.hero {
+  background: #0d47a1;
+  color: white;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #ffca28;
+  color: black;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+section {
+  padding: 2rem 1rem;
+  max-width: 700px;
+  margin: auto;
+}
+
+section h2 {
+  color: #0d47a1;
+  margin-bottom: 1rem;
+}
+
+.subjects ul {
+  list-style: square;
+  padding-left: 1.5rem;
+}
+
+.testimonials blockquote {
+  background: white;
+  padding: 1rem;
+  border-left: 4px solid #0d47a1;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.contact form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact input,
+.contact textarea {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.contact button {
+  background: #0d47a1;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+footer {
+  background: #eee;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+.calendar {
+  padding: 2rem 1rem;
+  background: #fff;
+  max-width: 800px;
+  margin: auto;
+}
+
+#calendar-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.slot {
+  padding: 0.5rem 1rem;
+  background: #e3f2fd;
+  border: 1px solid #90caf9;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.slot:hover {
+  background: #bbdefb;
+}
+
+.slot.booked {
+  background: #ccc;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+.iti {
+  width: 100%;
+}

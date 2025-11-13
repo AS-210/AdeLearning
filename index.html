@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ade Learning | Professional Tutor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- intl-tel-input CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>AdeLearn</h1>
+    <p>Math & Physics Tutoring (SATs, PATs, GCSE, IGCSE, AP)</p>
+    <a href="#calendar" class="btn">Book a Free Session</a>
+  </header>
+
+  <section class="about">
+    <h2>About Me</h2>
+    <p>I’m a professional tutor with 7+ years of experience helping students master math and physics. I specialize in building confidence, clarity, and results.</p>
+  </section>
+
+  <section class="subjects">
+    <h2>Subjects I Teach</h2>
+    <ul>
+      <li>High School Physics</li>
+      <li>Mathematics (All Levels)</li>
+      <li>Exam Prep: IB, GCSE, SAT, etc.</li>
+    </ul>
+  </section>
+
+  <section class="testimonials">
+    <h2>What Parents & Students Say</h2>
+    <blockquote>
+      “Ade is the best tutor we've ever worked with. Patient, clear, and always prepared.”
+    </blockquote>
+    <blockquote>
+      “Physics used to scare me. Now I actually look forward to it!”
+    </blockquote>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact / Book a Session</h2>
+    <p>First session is free! Let’s chat.</p>
+    <form>
+  <input type="text" name="your-name" placeholder="Your Name" required />
+  <input type="text" name="student-name" placeholder="Student's Name" required />
+
+  <!-- Phone input (with international formatting) -->
+  <label for="phone">Phone Number</label>
+<input id="phone" name="phone" type="tel" placeholder="+1 555-555-5555" required />
+
+  <input type="email" name="email" placeholder="Your Email" required />
+
+  <textarea id="message-box" name="message" placeholder="What do you need help with?" required></textarea>
+
+  <button type="submit">Send</button>
+</form>
+  </section>
+<section id="calendar" class="calendar">
+  <h2>Choose a Free Session Time</h2>
+  <p>Select a day and time:</p>
+  <input id="session-picker" placeholder="Click to choose..." readonly />
+</section>
+
+  <footer>
+    <p>&copy; 2025 Ade Learning</p>
+  </footer>
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+  const generateAvailableDates = () => {
+    const available = {};
+    const now = new Date();
+    const twoWeeksFromNow = new Date();
+    twoWeeksFromNow.setDate(now.getDate() + 14);
+
+    for (let d = new Date(now); d <= twoWeeksFromNow; d.setDate(d.getDate() + 1)) {
+      const day = d.toISOString().split('T')[0]; // YYYY-MM-DD
+
+      // Example: add 5 time slots for each day (could customize per weekday)
+      available[day] = [];
+
+      // Morning: 50-min sessions every hour from 9 to 1
+      for (let h = 9; h <= 13; h++) {
+        available[day].push(`${h.toString().padStart(2, '0')}:00`);
+      }
+
+      // Evening: sessions at 4:00, 5:15, 6:30, 7:45
+      const eveningTimes = ["16:00", "17:15", "18:30", "19:45"];
+      available[day].push(...eveningTimes);
+    }
+
+    return available;
+  };
+
+  const availableDates = generateAvailableDates();
+
+  flatpickr("#session-picker", {
+    enable: Object.keys(availableDates),
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr, instance) {
+      const timeList = availableDates[dateStr];
+      if (!timeList) return;
+
+      const time = prompt(`Available on ${dateStr}:\n${timeList.join("\n")}\n\nType preferred time exactly as shown:`);
+
+      if (timeList.includes(time)) {
+        instance.input.value = `${dateStr} ${time}`;
+      } else {
+        alert("Invalid time selected.");
+      }
+    }
+  });
+</script>
+<!-- intl-tel-input JS -->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
+<script>
+  const phoneInput = document.querySelector("#phone");
+  window.intlTelInput(phoneInput, {
+    initialCountry: "auto",
+    preferredCountries: ["us", "gb", "ng", "ca"],
+    geoIpLookup: function(callback) {
+      fetch('https://ipinfo.io/json?token=13e3d1ac992ad0') // Replace YOUR_TOKEN_HERE with a free token from ipinfo.io
+        .then(resp => resp.json())
+        .then(resp => callback(resp.country))
+        .catch(() => callback('us'));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
+  });
+</script>
+</body>
+</html>
