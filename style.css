@@ -138,7 +138,6 @@ footer {
 .cell.head .headlabel{ font-size:.95rem; }
 .cell.head sup{ font-size:.7em; vertical-align:super; line-height:1; }
 
-.time-col{ background:#fafafa; font-weight:600; }
 .time-col{ background:#fafafa; font-weight:600; white-space:nowrap; }
 
 .cell.slot{ border-radius:0; border-left:1px solid #eee; }
@@ -209,6 +208,7 @@ footer {
   .icon-btn{width:36px; height:36px;}
 
 }
+
 
 
 
