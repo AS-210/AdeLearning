@@ -12,6 +12,7 @@ header.hero {
   color: white;
   text-align: center;
   padding: 3rem 1rem;
+  position: relative;
 }
 
 .hero h1 {
@@ -160,6 +161,7 @@ footer {
   .cell.head .dow { font-size: .85rem; }
   .cell.head .date { font-size: .75rem; }
 }
+
 
 
 
