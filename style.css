@@ -123,8 +123,8 @@ footer {
   outline: 3px solid #1e56c5;
   outline-offset: 2px;
 }
-.grid{ display:block; width:100%; }
-.row{ display:grid; grid-template-columns: 90px repeat(7, 1fr); }
+.grid{ display:block; width:100%; max-height:420px; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.row{ display:grid; grid-template-columns: 140px repeat(7, 1fr); }
 .row + .row{ border-top:1px solid #eee; }
 
 .cell{
@@ -134,10 +134,11 @@ footer {
 .cell:first-child{ border-left:none; }
 
 .cell.head{ background:#f7f9fc; font-weight:600; }
-.cell.head .dow{ font-size:.9rem; }
-.cell.head .date{ font-size:.85rem; opacity:.75; }
+.cell.head .headlabel{ font-size:.95rem; }
+.cell.head sup{ font-size:.7em; vertical-align:super; line-height:1; }
 
 .time-col{ background:#fafafa; font-weight:600; }
+.time-col{ background:#fafafa; font-weight:600; white-space:nowrap; }
 
 .cell.slot{ border-radius:0; border-left:1px solid #eee; }
 .cell.slot.available{ background:#e6f0ff; }             /* blue blocks */
@@ -156,5 +157,6 @@ footer {
   .cell.head .dow { font-size: .85rem; }
   .cell.head .date { font-size: .75rem; }
 }
+
 
 
