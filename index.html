@@ -70,7 +70,19 @@
   <section id="contact" class="contact">
     <h2>Contact / Book a Session</h2>
     <p>First session is free! Let’s chat.</p>
-    <form>
+    <form
+  name="booking"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+>
+  <!-- Netlify required hidden field -->
+  <input type="hidden" name="form-name" value="booking" />
+
+  <!-- Honeypot field (hidden) -->
+  <p class="hidden">
+    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+  </p>
   <input type="text" name="your-name" placeholder="Your Name" required />
   <input type="text" name="student-name" placeholder="Student's Name" required />
 
@@ -325,4 +337,5 @@ SLOTS.forEach(slot => {
 </script>
 </body>
 </html>
+
 
