@@ -6,38 +6,37 @@
   <title>AdeLearning | Professional Tutor</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-<!-- Flatpickr CSS -->
-<!-- intl-tel-input CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
+  <!-- intl-tel-input CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
 </head>
 <body>
   <header class="hero">
     <!-- Top-right quick actions -->
-<!-- Top-right quick actions -->
-<div class="top-actions" role="navigation" aria-label="Quick actions">
-  <!-- Contact (with label) -->
-  <a id="contactAction" href="#contact" class="icon-btn labeled" title="Contact">
-    <span class="label">Contact</span>
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.236-7.445 5.59a2 2 0 0 1-2.11 0L3 8.236V6l8.445 6.34a2 2 0 0 0 2.11 0L20 6v2.236z"/>
-    </svg>
-  </a>
+    <div class="top-actions" role="navigation" aria-label="Quick actions">
+      <!-- Contact (with label) -->
+      <a id="contactAction" href="#contact" class="icon-btn labeled" title="Contact">
+        <span class="label">Contact</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.236-7.445 5.59a2 2 0 0 1-2.11 0L3 8.236V6l8.445 6.34a2 2 0 0 0 2.11 0L20 6v2.236z"/>
+        </svg>
+      </a>
 
-  <!-- Login (with label + dropdown) -->
-  <div class="login-dropdown labeled">
-    <button id="loginToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" title="Login">
-      <span class="label">Login</span>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
-      </svg>
-    </button>
-    <ul id="loginMenu" class="menu" role="menu" aria-labelledby="loginToggle">
-      <li role="none"><a role="menuitem" href="/login/student">Student/Client</a></li>
-      <li role="none"><a role="menuitem" href="/login/tutor">Tutor</a></li>
-      <li role="none"><a role="menuitem" href="/apply">Become a tutor</a></li>
-    </ul>
-  </div>
-</div>
+      <!-- Login (with label + dropdown) -->
+      <div class="login-dropdown labeled">
+        <button id="loginToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" title="Login">
+          <span class="label">Login</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.418 0-8 2.239-8 5v1h16v-1c0-2.761-3.582-5-8-5z"/>
+          </svg>
+        </button>
+        <ul id="loginMenu" class="menu" role="menu" aria-labelledby="loginToggle">
+          <li role="none"><a role="menuitem" href="/login/student">Student/Client</a></li>
+          <li role="none"><a role="menuitem" href="/login/tutor">Tutor</a></li>
+          <li role="none"><a role="menuitem" href="/apply">Become a tutor</a></li>
+        </ul>
+      </div>
+    </div>
+
     <h1>AdeLearning</h1>
     <p>Math & Physics Tutoring (SATs, PATs, GCSE, IGCSE, AP)</p>
     <a href="#calendar" class="btn">Book a Free Trial Session</a>
@@ -70,272 +69,345 @@
   <section id="contact" class="contact">
     <h2>Contact / Book a Session</h2>
     <p>First session is free! Let’s chat.</p>
+
+    <!-- Netlify booking form -->
     <form
-  name="booking"
-  method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
->
-  <!-- Netlify required hidden field -->
-  <input type="hidden" name="form-name" value="booking" />
+      name="booking"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+    >
+      <!-- Netlify required hidden field -->
+      <input type="hidden" name="form-name" value="booking" />
 
-  <!-- Honeypot field (hidden) -->
-  <p class="hidden">
-    <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
-  </p>
-  <input type="text" name="your-name" placeholder="Your Name" required />
-  <input type="text" name="student-name" placeholder="Student's Name" required />
+      <!-- Honeypot field (hidden by CSS) -->
+      <p class="hidden">
+        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+      </p>
 
-  <!-- Phone input (with international formatting) -->
-  <label for="phone">Phone Number</label>
-<input id="phone" name="phone" type="tel" placeholder="+1 555-555-5555" required />
+      <input type="text" name="your-name" placeholder="Your Name" required />
+      <input type="text" name="student-name" placeholder="Student's Name" required />
 
-  <input type="email" name="email" placeholder="Your Email" required />
+      <!-- New structured fields for subject / level -->
+      <input type="text" name="subject" placeholder="Subject (e.g. Physics)" required />
+      <input type="text" name="level" placeholder="Level / Grade (e.g. IB HL, Year 11)" required />
 
-  <textarea id="message-box" name="message" placeholder="What do you need help with?" required></textarea>
+      <!-- Phone input (with international formatting) -->
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="tel" placeholder="+1 555-555-5555" required />
 
- <!-- Choose a Free Session Time (moved above Send button) -->
-<section id="calendar" class="calendar">
-  <h2>Choose a Free Session Time</h2>
+      <input type="email" name="email" placeholder="Your Email" required />
 
-  <div class="avail-header">
-    <button type="button" id="prevWeek" class="nav-btn" aria-label="Previous week">←</button>
-    <div id="weekLabel"></div>
-    <button type="button" id="nextWeek" class="nav-btn" aria-label="Next week">→</button>
-  </div>
+      <textarea id="message-box" name="message" placeholder="What do you need help with?" required></textarea>
 
-  <div class="grid" id="availabilityGrid" aria-live="polite"></div>
+      <!-- Choose a Free Session Time -->
+      <section id="calendar" class="calendar">
+        <h2>Choose a Free Session Time</h2>
 
-  <!-- stores the selected slot -->
-  <input type="hidden" name="session_datetime" id="session_datetime" />
-</section>
+        <div class="avail-header">
+          <button type="button" id="prevWeek" class="nav-btn" aria-label="Previous week">←</button>
+          <div id="weekLabel"></div>
+          <button type="button" id="nextWeek" class="nav-btn" aria-label="Next week">→</button>
+        </div>
 
-<button type="submit">Send</button>
-</form>
+        <div class="grid" id="availabilityGrid" aria-live="polite"></div>
+
+        <!-- stores the selected slot -->
+        <input type="hidden" name="session_datetime" id="session_datetime" />
+      </section>
+
+      <button type="submit">Send</button>
+    </form>
+
+    <!-- On-screen confirmation message (hidden by default) -->
+    <div id="confirmation" class="confirmation hidden" aria-live="polite"></div>
+  </section>
 
   <footer>
     <p>&copy; 2025 Ade Learning</p>
   </footer>
 
-<!-- intl-tel-input JS -->
-<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+  <!-- intl-tel-input JS -->
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 
-<script>
-  const phoneInput = document.querySelector("#phone");
-  window.intlTelInput(phoneInput, {
-    initialCountry: "auto",
-    preferredCountries: ["us", "gb", "ng", "ca"],
-    geoIpLookup: function(callback) {
-      fetch('https://ipinfo.io/json?token=13e3d1ac992ad0') // Replace YOUR_TOKEN_HERE with a free token from ipinfo.io
-        .then(resp => resp.json())
-        .then(resp => callback(resp.country))
-        .catch(() => callback('us'));
-    },
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
-  });
-</script>
+  <script>
+    // Phone input formatting
+    const phoneInput = document.querySelector("#phone");
+    window.intlTelInput(phoneInput, {
+      initialCountry: "auto",
+      preferredCountries: ["us", "gb", "ng", "ca"],
+      geoIpLookup: function(callback) {
+        fetch('https://ipinfo.io/json?token=13e3d1ac992ad0')
+          .then(resp => resp.json())
+          .then(resp => callback(resp.country))
+          .catch(() => callback('us'));
+      },
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
+    });
+  </script>
 
-<script>
-  // ---------- Availability configuration ----------
-  // Hours are 24h integers. Example: Mon–Fri: 09–13, 16–19; Sat/Sun: none.
-  const WEEK_MAP = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
-  const SLOTS = [
-  // Morning sessions
-  { start: '08:00', end: '08:50', label: '08:00–08:50' },
-  { start: '09:00', end: '09:50', label: '09:00–09:50' },
-  { start: '10:00', end: '10:50', label: '10:00–10:50' },
-  { start: '11:00', end: '11:50', label: '11:00–11:50' },
-  { start: '12:00', end: '12:50', label: '12:00–12:50' },
-  { start: '13:00', end: '13:50', label: '13:00–13:50' },
+  <script>
+    // ---------- Availability configuration ----------
+    const WEEK_MAP = {0:'Sun',1:'Mon',2:'Tue',3:'Wed',4:'Thu',5:'Fri',6:'Sat'};
 
-  // Midday break block (visible but unavailable)
-  { start: '13:50', end: '14:30', label: '13:50–14:30', available: false },
+    const SLOTS = [
+      // Morning sessions
+      { start: '08:00', end: '08:50', label: '08:00–08:50' },
+      { start: '09:00', end: '09:50', label: '09:00–09:50' },
+      { start: '10:00', end: '10:50', label: '10:00–10:50' },
+      { start: '11:00', end: '11:50', label: '11:00–11:50' },
+      { start: '12:00', end: '12:50', label: '12:00–12:50' },
+      { start: '13:00', end: '13:50', label: '13:00–13:50' },
 
-  // Afternoon & evening sessions
-  { start: '14:30', end: '15:30', label: '14:30–15:30' },
-  { start: '15:45', end: '16:45', label: '15:45–16:45' },
-  { start: '17:00', end: '18:00', label: '17:00–18:00' },
-  { start: '18:15', end: '19:15', label: '18:15–19:15' },
-  { start: '19:30', end: '20:30', label: '19:30–20:30' },
+      // Midday break block (visible but unavailable)
+      { start: '13:50', end: '14:30', label: '13:50–14:30', available: false },
 
-  // Overnight break block (visible but unavailable)
-  { start: '20:30', end: '08:00', label: '20:30–08:00', available: false }
-];
-const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
+      // Afternoon & evening sessions
+      { start: '14:30', end: '15:30', label: '14:30–15:30' },
+      { start: '15:45', end: '16:45', label: '15:45–16:45' },
+      { start: '17:00', end: '18:00', label: '17:00–18:00' },
+      { start: '18:15', end: '19:15', label: '18:15–19:15' },
+      { start: '19:30', end: '20:30', label: '19:30–20:30' },
 
-  // Window: today .. today+13 (two weeks)
-  const START = new Date(); START.setHours(0,0,0,0);
-  const END   = new Date(START); END.setDate(END.getDate()+13);
+      // Overnight break block (visible but unavailable)
+      { start: '20:30', end: '08:00', label: '20:30–08:00', available: false }
+    ];
 
-  // State
-  let weekStart = startOfWeek(START); // Monday-start or Sunday-start: using Monday below
-  let selectedISO = '';
+    const OPEN_DAYS = [0,1,2,3,4,5,6]; // Sun..Sat all open
 
-  function startOfWeek(d){
-    const x = new Date(d);
-    const dow = x.getDay(); // 0 Sun ... 6 Sat
-    // make Monday the first column:
-    const offset = (dow === 0 ? -6 : 1 - dow);
-    x.setDate(x.getDate()+offset);
-    x.setHours(0,0,0,0);
-    return x;
-  }
+    // Window: today .. today+13 (two weeks)
+    const START = new Date(); START.setHours(0,0,0,0);
+    const END   = new Date(START); END.setDate(END.getDate()+13);
 
-  function clampToWindow(date){
-    return (date >= START && date <= END);
-  }
+    // State
+    let weekStart = startOfWeek(START);
+    let selectedISO = '';
 
-  function ymd(date){
-    return date.toISOString().split('T')[0];
-  }
-
-  function labelRange(a,b){
-    const fmt = (dt)=>dt.toLocaleDateString(undefined,{day:'numeric', month:'short', year:'numeric'});
-    return `${fmt(a)} – ${fmt(b)}`;
-  }
-
-  function ordinalSup(n){
-  const v = n % 100;
-  const suf = (v >= 11 && v <= 13) ? 'th' :
-              (n % 10 === 1) ? 'st' :
-              (n % 10 === 2) ? 'nd' :
-              (n % 10 === 3) ? 'rd' : 'th';
-  return `${n}<sup>${suf}</sup>`;
-}
-  function buildGrid(){
-    const grid = document.getElementById('availabilityGrid');
-    grid.innerHTML = '';
-
-    const first = new Date(weekStart);
-    const last  = new Date(first); last.setDate(last.getDate()+6);
-
-    // Week label
-    document.getElementById('weekLabel').textContent = labelRange(first,last);
-
-    // header row (empty corner + weekdays)
-    const headerRow = document.createElement('div');
-    headerRow.className = 'row header';
-
-    const corner = document.createElement('div'); corner.className = 'cell head time-col';
-    corner.textContent = '';
-    headerRow.appendChild(corner);
-
-    // 7 days (Mon..Sun)
-    for(let i=0;i<7;i++){
-      const d = new Date(first); d.setDate(first.getDate()+i);
-      const cell = document.createElement('div');
-      cell.className = 'cell head';
-      const dayNum = d.getDate();
-      cell.innerHTML = `<div class="headlabel">${WEEK_MAP[d.getDay()]} ${ordinalSup(dayNum)}</div>`;
-      headerRow.appendChild(cell);
+    function startOfWeek(d){
+      const x = new Date(d);
+      const dow = x.getDay(); // 0 Sun ... 6 Sat
+      const offset = (dow === 0 ? -6 : 1 - dow); // Monday as first column
+      x.setDate(x.getDate()+offset);
+      x.setHours(0,0,0,0);
+      return x;
     }
-    grid.appendChild(headerRow);
 
-   // slot rows
-SLOTS.forEach(slot => {
-  const row = document.createElement('div');
-  row.className = 'row';
-  if (slot.available === false) row.classList.add('break');
+    function clampToWindow(date){
+      return (date >= START && date <= END);
+    }
 
-  // slot label column (shows full range)
-  const tlabel = document.createElement('div');
-  tlabel.className = 'cell time-col';
-  tlabel.textContent = slot.label;
-  row.appendChild(tlabel);
+    function ymd(date){
+      return date.toISOString().split('T')[0];
+    }
 
-  // 7 day cells
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(first); d.setDate(first.getDate() + i);
-    const inWindow = clampToWindow(d);
-    const allowedDay = OPEN_DAYS.includes(d.getDay());
-    const isSlotOpen = (slot.available !== false);  // default true unless explicitly false
-    const available  = inWindow && allowedDay && isSlotOpen;
+    function labelRange(a,b){
+      const fmt = (dt)=>dt.toLocaleDateString(undefined,{
+        day:'numeric', month:'short', year:'numeric'
+      });
+      return `${fmt(a)} – ${fmt(b)}`;
+    }
 
-    const cell = document.createElement('button');
-    cell.type = 'button';
-    cell.className = 'cell slot ' + (available ? 'available' : 'unavailable');
-    cell.disabled = !available;
-    if (!available) cell.setAttribute('aria-disabled', 'true');
+    function ordinalSup(n){
+      const v = n % 100;
+      const suf = (v >= 11 && v <= 13) ? 'th' :
+                  (n % 10 === 1) ? 'st' :
+                  (n % 10 === 2) ? 'nd' :
+                  (n % 10 === 3) ? 'rd' : 'th';
+      return `${n}<sup>${suf}</sup>`;
+    }
 
-    if (available) {
-  const iso = `${ymd(d)} ${slot.start}-${slot.end}`;
-  cell.dataset.iso = iso;
+    function buildGrid(){
+      const grid = document.getElementById('availabilityGrid');
+      grid.innerHTML = '';
 
-  // a11y + tooltip
-  cell.setAttribute('aria-label', `${WEEK_MAP[d.getDay()]} ${ymd(d)} ${slot.start} to ${slot.end}`);
-  cell.title = slot.label;
+      const first = new Date(weekStart);
+      const last  = new Date(first); last.setDate(last.getDate()+6);
 
-  cell.addEventListener('click', () => {
-    document.querySelectorAll('.cell.slot.selected').forEach(c => c.classList.remove('selected'));
-    cell.classList.add('selected');
-    selectedISO = iso;
-    document.getElementById('session_datetime').value = iso;
-  });
-}
+      // Week label
+      document.getElementById('weekLabel').textContent = labelRange(first,last);
 
-    row.appendChild(cell);
-  }
+      // header row (empty corner + weekdays)
+      const headerRow = document.createElement('div');
+      headerRow.className = 'row header';
 
-  grid.appendChild(row);
-});
+      const corner = document.createElement('div');
+      corner.className = 'cell head time-col';
+      corner.textContent = '';
+      headerRow.appendChild(corner);
 
-    // nav buttons state
-    const prevBtn = document.getElementById('prevWeek');
-    const nextBtn = document.getElementById('nextWeek');
+      // 7 days (Mon..Sun)
+      for(let i=0;i<7;i++){
+        const d = new Date(first); d.setDate(first.getDate()+i);
+        const cell = document.createElement('div');
+        cell.className = 'cell head';
+        const dayNum = d.getDate();
+        cell.innerHTML = `<div class="headlabel">${WEEK_MAP[d.getDay()]} ${ordinalSup(dayNum)}</div>`;
+        headerRow.appendChild(cell);
+      }
+      grid.appendChild(headerRow);
 
-    const prevStart = new Date(weekStart); prevStart.setDate(prevStart.getDate()-7);
-    const nextStart = new Date(weekStart); nextStart.setDate(nextStart.getDate()+7);
+      // slot rows
+      SLOTS.forEach(slot => {
+        const row = document.createElement('div');
+        row.className = 'row';
+        if (slot.available === false) row.classList.add('break');
 
-    const prevInRange = (new Date(prevStart) >= startOfWeek(START));
-    const nextInRange = (new Date(nextStart) <= startOfWeek(END));
+        // slot label column
+        const tlabel = document.createElement('div');
+        tlabel.className = 'cell time-col';
+        tlabel.textContent = slot.label;
+        row.appendChild(tlabel);
 
-    prevBtn.disabled = !prevInRange;
-    nextBtn.disabled = !nextInRange;
-  }
+        // 7 day cells
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(first); d.setDate(first.getDate() + i);
+          const inWindow = clampToWindow(d);
+          const allowedDay = OPEN_DAYS.includes(d.getDay());
+          const isSlotOpen = (slot.available !== false);
+          const available  = inWindow && allowedDay && isSlotOpen;
 
-  document.getElementById('prevWeek').addEventListener('click', ()=>{
-    weekStart.setDate(weekStart.getDate()-7);
-    buildGrid();
-  });
-  document.getElementById('nextWeek').addEventListener('click', ()=>{
-    weekStart.setDate(weekStart.getDate()+7);
-    buildGrid();
-  });
+          const cell = document.createElement('button');
+          cell.type = 'button';
+          cell.className = 'cell slot ' + (available ? 'available' : 'unavailable');
+          cell.disabled = !available;
+          if (!available) cell.setAttribute('aria-disabled', 'true');
 
-  // Prevent form submit without a picked slot
-  document.querySelector('form').addEventListener('submit', (e)=>{
-    if(!document.getElementById('session_datetime').value){
+          if (available) {
+            const iso = `${ymd(d)} ${slot.start}-${slot.end}`;
+            cell.dataset.iso = iso;
+
+            // a11y + tooltip
+            cell.setAttribute('aria-label', `${WEEK_MAP[d.getDay()]} ${ymd(d)} ${slot.start} to ${slot.end}`);
+            cell.title = slot.label;
+
+            cell.addEventListener('click', () => {
+              document.querySelectorAll('.cell.slot.selected').forEach(c => c.classList.remove('selected'));
+              cell.classList.add('selected');
+              selectedISO = iso;
+              document.getElementById('session_datetime').value = iso;
+            });
+          }
+
+          row.appendChild(cell);
+        }
+
+        grid.appendChild(row);
+      });
+
+      // nav buttons state
+      const prevBtn = document.getElementById('prevWeek');
+      const nextBtn = document.getElementById('nextWeek');
+
+      const prevStart = new Date(weekStart); prevStart.setDate(prevStart.getDate()-7);
+      const nextStart = new Date(weekStart); nextStart.setDate(nextStart.getDate()+7);
+
+      const prevInRange = (new Date(prevStart) >= startOfWeek(START));
+      const nextInRange = (new Date(nextStart) <= startOfWeek(END));
+
+      prevBtn.disabled = !prevInRange;
+      nextBtn.disabled = !nextInRange;
+    }
+
+    document.getElementById('prevWeek').addEventListener('click', ()=>{
+      weekStart.setDate(weekStart.getDate()-7);
+      buildGrid();
+    });
+    document.getElementById('nextWeek').addEventListener('click', ()=>{
+      weekStart.setDate(weekStart.getDate()+7);
+      buildGrid();
+    });
+
+    // Custom Netlify form submit:
+    //  - ensures a slot is chosen
+    //  - posts to Netlify
+    //  - shows on-screen confirmation
+    const bookingForm = document.querySelector("form[name='booking']");
+    bookingForm.addEventListener('submit', (e)=>{
       e.preventDefault();
-      alert('Select a slot (click a blue block) before sending.');
+
+      const sessionField = document.getElementById('session_datetime');
+      if (!sessionField.value) {
+        alert('Select a slot (click a blue block) before sending.');
+        return;
+      }
+
+      const formData = new FormData(bookingForm);
+
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(() => {
+        const clientName  = formData.get("your-name");
+        const studentName = formData.get("student-name");
+        const subject     = formData.get("subject");
+        const level       = formData.get("level");
+        const email       = formData.get("email");
+        const slot        = formData.get("session_datetime");
+
+        let niceSlot = slot;
+        try {
+          const [datePart, timeRange] = slot.split(" ");
+          const dateObj = new Date(datePart);
+          const formattedDate = dateObj.toLocaleDateString(undefined, {
+            weekday:'short',
+            day:'numeric',
+            month:'short',
+            year:'numeric'
+          });
+          niceSlot = `${formattedDate} at ${timeRange.replace('-', '–')}`;
+        } catch (err) {
+          // fall back to raw value
+        }
+
+        const confirmation = document.getElementById("confirmation");
+        confirmation.innerHTML = `
+          <strong>Thank you, ${clientName}!</strong><br>
+          ${studentName}'s free ${subject} (${level}) session has been booked for
+          <strong>${niceSlot}</strong>.<br>
+          I’ll email you at <strong>${email}</strong> with confirmation and next steps.
+        `;
+        confirmation.classList.remove("hidden");
+
+        // clear form + selected slot
+        bookingForm.reset();
+        sessionField.value = '';
+        document.querySelectorAll('.cell.slot.selected').forEach(c => c.classList.remove('selected'));
+
+        confirmation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("Something went wrong sending your booking. Please try again, or email me directly.");
+      });
+    });
+
+    buildGrid();
+  </script>
+
+  <script>
+    // Login dropdown toggle + close on outside click / Esc
+    const loginToggle = document.getElementById('loginToggle');
+    const loginWrap = document.querySelector('.login-dropdown');
+
+    function closeMenu(){
+      loginWrap.classList.remove('open');
+      loginToggle.setAttribute('aria-expanded','false');
     }
-  });
 
-  buildGrid();
-</script>
-<script>
-  // Login dropdown toggle + close on outside click / Esc
-  const loginToggle = document.getElementById('loginToggle');
-  const loginWrap = document.querySelector('.login-dropdown');
+    loginToggle.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const open = loginWrap.classList.toggle('open');
+      loginToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
 
-  function closeMenu(){
-    loginWrap.classList.remove('open');
-    loginToggle.setAttribute('aria-expanded','false');
-  }
-
-  loginToggle.addEventListener('click', (e)=>{
-    e.stopPropagation();
-    const open = loginWrap.classList.toggle('open');
-    loginToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  document.addEventListener('click', (e)=>{
-    if(!loginWrap.contains(e.target)) closeMenu();
-  });
-  document.addEventListener('keydown', (e)=>{
-    if(e.key === 'Escape') closeMenu();
-  });
-</script>
+    document.addEventListener('click', (e)=>{
+      if(!loginWrap.contains(e.target)) closeMenu();
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeMenu();
+    });
+  </script>
 </body>
 </html>
-
-
