@@ -87,28 +87,30 @@ footer {
   padding: 1rem;
   font-size: 0.9rem;
 }
+
 .calendar {
   background: #fff;
-  max-width: 700px;     /* match the width of your form section */
+  max-width: 700px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem 0 0.5rem;      /* slightly reduced to align visually */
+  padding: 1rem 0 0.5rem;
 }
 
 .iti {
   width: 100%;
-  margin-bottom: 1rem;       /* same vertical spacing as others */
+  margin-bottom: 1rem;
   display: block;
   box-sizing: border-box;
 }
 
 .iti input {
-  width: 100% !important;    /* force input width to match others */
+  width: 100% !important;
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
+
 /* Availability grid */
 .avail-header{
   display:flex; align-items:center; justify-content:center;
@@ -141,10 +143,10 @@ footer {
 .time-col{ background:#fafafa; font-weight:600; white-space:nowrap; }
 
 .cell.slot{ border-radius:0; border-left:1px solid #eee; }
-.cell.slot.available{ background:#e6f0ff; }             /* blue blocks */
+.cell.slot.available{ background:#e6f0ff; }
 .cell.slot.available:hover{ background:#cfe2ff; cursor:pointer; }
-.cell.slot.unavailable{ background:#fff; }
-.cell.slot.unavailable { background:#fff; cursor: default; }
+.cell.slot.unavailable{ background:#fff; cursor: default; }
+
 /* Unavailable rows that are intentional breaks */
 .row.break .time-col { background:#f2f2f2; }
 .row.break .cell.slot.unavailable { background:#f7f7f7; color:#777; }
@@ -152,17 +154,18 @@ footer {
 .cell.slot.selected{ outline:3px solid #1e56c5; background:#bcd2ff !important; }
 
 /* Keep the grid usable on small screens */
-.calendar { overflow-x: auto; }  /* enables horizontal scroll if needed */
+.calendar { overflow-x: auto; }
 
 @media (max-width: 520px) {
   .row { grid-template-columns: 64px repeat(7, 1fr); }
   .cell { min-height: 38px; }
-  .cell.head .dow { font-size: .85rem; }
-  .cell.head .date { font-size: .75rem; }
 }
 
 /* Top-right actions */
-.top-actions{position:absolute; top:12px; right:16px; display:flex; gap:10px; z-index:10;}
+.top-actions{
+  position:absolute; top:12px; right:16px;
+  display:flex; gap:10px; z-index:10;
+}
 .icon-btn{
   display:inline-flex; align-items:center; justify-content:center;
   width:40px; height:40px; border-radius:999px;
@@ -180,11 +183,7 @@ footer {
   background:#fff; border:1px solid #e5e5e5; border-radius:8px;
   box-shadow:0 8px 20px rgba(0,0,0,.15);
   z-index:20;
-
-  /* list reset + spacing */
   list-style:none; margin:0; padding:6px 0;
-
-  /* hidden by default; shown when .open is added via JS */
   display:none;
 }
 .login-dropdown.open .menu{ display:block; }
@@ -206,7 +205,6 @@ footer {
 @media (max-width:520px){
   .top-actions{top:8px; right:8px;}
   .icon-btn{width:36px; height:36px;}
-
 }
 
 /* Labeled icon buttons (Contact / Login) */
@@ -215,9 +213,9 @@ footer {
   align-items:center;
   gap:8px;
   height:40px;
-  width:auto;                 /* allow text */
-  padding:0 12px;             /* pill padding */
-  border-radius:9999px;       /* pill shape */
+  width:auto;
+  padding:0 12px;
+  border-radius:9999px;
 }
 
 .icon-btn.labeled .label{
@@ -226,13 +224,12 @@ footer {
   line-height:1;
 }
 
-/* Slightly tighten icon when label is present */
 .icon-btn.labeled svg{ width:18px; height:18px; }
 
-/* Mobile: hide labels if space is tight (optional) */
 @media (max-width:420px){
   .icon-btn.labeled .label{ display:none; }
 }
+
 .login-dropdown.labeled .icon-btn{
   display:inline-flex;
   align-items:center;
@@ -248,8 +245,20 @@ footer {
   font-size:.95rem;
   line-height:1;
 }
+
 /* Hide Netlify honeypot field */
 .hidden {
   display: none;
 }
 
+/* Confirmation box after successful booking */
+.confirmation{
+  max-width:700px;
+  margin:1rem auto 2rem;
+  padding:1rem 1.25rem;
+  background:#e8f5e9;
+  border-left:4px solid #2e7d32;
+  border-radius:4px;
+  color:#1b5e20;
+  font-size:0.95rem;
+}
